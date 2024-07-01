@@ -1,95 +1,35 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+"use client";
 
-export default function Home() {
-  return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
+import {IBanChecker_Checker} from "../../components/iBanChecker_Checker";
+import {useState} from "react";
+import {GgT_Euklid_Checker} from "../../components/ggT_Euklid_Checker";
+import {GgT_Primzahl_Checker} from "../../components/ggT_Primzahl_Calculator";
+import {Modulo_Checker} from "../../components/Modulo_Checker";
+
+const Home = () => {
+    const [selectedCalculator, setSelectedCalculator] = useState<number>(0);
+
+    const enum Calculator {
+        ggT_Euklid = 0,
+        ggT_Primzahl = 1,
+        Modulo = 2,
+        iBanChecker = 3,
+    }
+
+    return (
+      <div>
+        <select onChange={v => setSelectedCalculator(Number(v.target.value))}>
+          <option value={0}>ggT Euklid</option>
+          <option value={1}>ggT Primzahl</option>
+          <option value={2}>Modulo</option>
+          <option value={3}>iBan Checker</option>
+        </select>
+        {selectedCalculator == Calculator.ggT_Euklid ? <GgT_Euklid_Checker/> : null}
+        {selectedCalculator == Calculator.iBanChecker ? <IBanChecker_Checker/> : null}
+        {selectedCalculator == Calculator.Modulo ? <Modulo_Checker/> : null}
+        {selectedCalculator == Calculator.ggT_Primzahl ? <GgT_Primzahl_Checker/> : null}
       </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  );
+    )
 }
+
+export default Home;
